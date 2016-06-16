@@ -1,0 +1,170 @@
+# depslib dependency file v1.0
+1465911202 source:e:\desktop\run & kill v2.5\sdl.cpp
+	"global.h"
+	"class.h"
+	"Alarm.h"
+	<string>
+	<sstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1465537137 source:e:\desktop\run & kill v2.5\globalvar.cpp
+	"core.h"
+
+1465537167 e:\desktop\run & kill v2.5\core.h
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_mixer.h"
+
+1465910965 source:e:\desktop\run & kill v2.5\global.cpp
+	"global.h"
+
+1465911022 e:\desktop\run & kill v2.5\global.h
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_mixer.h"
+	<iostream>
+
+1465793609 source:e:\desktop\run & kill v2.5\globalfunction.cpp
+	"global.h"
+
+1465910875 e:\desktop\run & kill v2.5\class.h
+	"global.h"
+
+1465794713 source:e:\desktop\run & kill v2.5\squre.cpp
+	"class.h"
+
+1465539568 source:e:\desktop\run & kill v2.5\enemy.cpp
+	"class.h"
+
+1465539615 source:e:\desktop\run & kill v2.5\orthoenemy.cpp
+	"class.h"
+
+1465539690 source:e:\desktop\run & kill v2.5\parenemy.cpp
+	"class.h"
+
+1465539721 source:e:\desktop\run & kill v2.5\randenemy.cpp
+	"class.h"
+
+1465539761 source:e:\desktop\run & kill v2.5\boss.cpp
+	"class.h"
+
+1465539790 source:e:\desktop\run & kill v2.5\centerenemy.cpp
+	"class.h"
+
+1465567785 source:e:\desktop\run & kill v2.5\window.cpp
+	"class.h"
+
+1465539874 source:e:\desktop\run & kill v2.5\timer.cpp
+	"class.h"
+
+1465542599 source:e:\desktop\run & kill v2.5\alarm\alarm.cpp
+	"core.h"
+
+1463672488 e:\desktop\run & kill v2.5\alarm\core.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+
+1465794937 source:e:\desktop\run & kill v2.5\alarm.cpp
+	"Alarm.h"
+
+1465911091 e:\desktop\run & kill v2.5\alarm.h
+	"class.h"
+
+1465792957 source:e:\desktop\run & kill v2.5\hand.cpp
+	"Alarm.h"
+	"global.h"
+
+1465573355 source:e:\desktop\run & kill v2.5\bar.cpp
+	"Alarm.h"
+	<stdlib.h>
+	<iostream>
+
+1465909872 source:e:\desktop\run & kill v2.5\menu.cpp
+	"class.h"
+
+1465904526 source:e:\desktop\run & kill v2.5\button.cpp
+	"class.h"
+
+1465910152 e:\desktop\run & kill v2.5\sdl.h
+
+1465794937 source:d:\game\alarm.cpp
+	"Alarm.h"
+
+1465911091 d:\game\alarm.h
+	"class.h"
+
+1465910875 d:\game\class.h
+	"global.h"
+
+1465911022 d:\game\global.h
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_mixer.h"
+	<iostream>
+
+1465573355 source:d:\game\bar.cpp
+	"Alarm.h"
+	<stdlib.h>
+	<iostream>
+
+1465539761 source:d:\game\boss.cpp
+	"class.h"
+
+1465904526 source:d:\game\button.cpp
+	"class.h"
+
+1465539790 source:d:\game\centerenemy.cpp
+	"class.h"
+
+1465539568 source:d:\game\enemy.cpp
+	"class.h"
+
+1465910965 source:d:\game\global.cpp
+	"global.h"
+
+1465793609 source:d:\game\globalfunction.cpp
+	"global.h"
+
+1465792957 source:d:\game\hand.cpp
+	"Alarm.h"
+	"global.h"
+
+1465909872 source:d:\game\menu.cpp
+	"class.h"
+
+1465539615 source:d:\game\orthoenemy.cpp
+	"class.h"
+
+1465539690 source:d:\game\parenemy.cpp
+	"class.h"
+
+1465539721 source:d:\game\randenemy.cpp
+	"class.h"
+
+1465911825 source:d:\game\sdl.cpp
+	"global.h"
+	"class.h"
+	"Alarm.h"
+	<string>
+	<sstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1465794713 source:d:\game\squre.cpp
+	"class.h"
+
+1465539874 source:d:\game\timer.cpp
+	"class.h"
+
+1465567785 source:d:\game\window.cpp
+	"class.h"
+

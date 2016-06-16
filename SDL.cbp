@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SDL" />
+		<Option pch_mode="2" />
+		<Option compiler="mingw_x86" />
+		<Build>
+			<Target title="default">
+				<Option output="SDL" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="mingw_x86" />
+			</Target>
+		</Build>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="SDLmain" />
+			<Add library="SDL" />
+			<Add library="SDL_image" />
+			<Add library="SDL_ttf" />
+			<Add library="SDL_mixer" />
+		</Linker>
+		<Unit filename="Alarm.cpp" />
+		<Unit filename="Alarm.h" />
+		<Unit filename="Boss.cpp" />
+		<Unit filename="CenterEnemy.cpp" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Hand.cpp" />
+		<Unit filename="OrthoEnemy.cpp" />
+		<Unit filename="ParEnemy.cpp" />
+		<Unit filename="RandEnemy.cpp" />
+		<Unit filename="SDL.cpp" />
+		<Unit filename="Timer.cpp" />
+		<Unit filename="Window.cpp" />
+		<Unit filename="bar.cpp" />
+		<Unit filename="button.cpp" />
+		<Unit filename="class.h" />
+		<Unit filename="global.cpp" />
+		<Unit filename="global.h" />
+		<Unit filename="globalfunction.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="squre.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
