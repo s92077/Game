@@ -25,6 +25,7 @@
 		<Unit filename="Boss.cpp" />
 		<Unit filename="CenterEnemy.cpp" />
 		<Unit filename="Enemy.cpp" />
+		<Unit filename="Game1.cpp" />
 		<Unit filename="Hand.cpp" />
 		<Unit filename="OrthoEnemy.cpp" />
 		<Unit filename="ParEnemy.cpp" />
@@ -35,6 +36,7 @@
 		<Unit filename="bar.cpp" />
 		<Unit filename="button.cpp" />
 		<Unit filename="class.h" />
+		<Unit filename="framework.h" />
 		<Unit filename="global.cpp" />
 		<Unit filename="global.h" />
 		<Unit filename="globalfunction.cpp" />

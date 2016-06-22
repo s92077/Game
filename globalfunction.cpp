@@ -258,7 +258,7 @@ bool init()
 }
 
 bool load_files()
-    {
+{
     //Load the square image
     square = load_image( "./picture/irene_run.bmp" );
 
@@ -461,7 +461,8 @@ void clean_up()
     //Quit SDL
     SDL_Quit();
 }
-void setWall(){
+void setWall()
+{
     //Set the wall
     wall[0].x = 150;
     wall[0].y = 500;

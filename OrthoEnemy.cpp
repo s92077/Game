@@ -74,18 +74,3 @@ void OrthoEnemy::show()
         apply_surface( x - camera.x,y - camera.y, orthoenemy, screen , &orthoenemyDown[ frame ] );
 
 }
-
-ParEnemy::ParEnemy()
-{
-    //Initialize the offsets
-    x = 0;
-    y = 0;
-
-    //Initialize the velocity
-    xVel = 20;
-    yVel = 150;
-
-    //Initialize animation variables
-    frame = 0;
-    status = PARENEMY_Right;
-}

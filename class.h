@@ -1,32 +1,95 @@
 #ifndef CLASS_H
 #define CLASS_H
 #include "global.h"
+#include "framework.h"
+//The attributes of the Alarm
+#define ALARM_WIDTH 96
+#define ALARM_HEIGHT 102
+#define HAND_WIDTH 201
+#define HAND_HEIGHT 63
 
-//Our window
-class Window
+//The direction status of the stick figure
+
+#define ALARM_Left 0
+#define ALARM_Right 1
+#define HAND_Left 0
+#define HAND_Right 1
+#define HAND_Up 2
+#define HAND_Down 3
+#define HAND_Stop 4
+
+class Alarm
 {
-    private:
-    //Whether the window is windowed or not
-    bool windowed;
-
-    //Whether the window is fine
-    bool windowOK;
-
     public:
-    //Constructor
-    Window();
+    SDL_Surface *alarm;
+    //The collision box of the square
+    SDL_Rect box;
 
-    //Handle window events
-    void handle_events();
+    //The velocity of the dot
+    int xVel, yVel;
 
-    //Turn fullscreen on/off
-    void toggle_fullscreen();
+    //Initializes the variables
+    Alarm();
+    ~Alarm();
 
-    //Check if anything's wrong with the window
-    bool error();
+    //Its current frame
+    int frame;
+
+    //Its animation status
+    int status;
+
+    //Takes key presses and adjusts the square's velocity
+    void handle_input();
+
+    //Moves the square
+    void move();
+
+    //Shows the dot on the screen
+    void show();
+    void clear();
+
+    //Sets the camera over the square
 };
+class Bar{
+public:
+    Timer t;
+    int life;
+    TTF_Font *f;
+    SDL_Surface *heart;
+    SDL_Surface *info;
+    SDL_Surface *bk;
+    void show();
+    Bar();
+    ~Bar();
+    void clear();
+};
+class Hand
+{
+    public:
+    Timer timer;
+    int time;
+    SDL_Surface *hand;
+    //The collision box of the square
+    SDL_Rect box;
 
+    //The velocity of the dot
+    int xVel, yVel;
 
+    //Initializes the variables
+    Hand();
+    ~Hand();
+
+    //Its animation status
+    int status;
+
+    //Moves the square
+    void move(SDL_Rect &,Bar &);
+
+    //Shows the dot on the screen
+    void show();
+    void clear();
+
+};
 
     //The square
 class Square
@@ -198,39 +261,6 @@ class CenterEnemy
 
 };
 
-
-//The timer
-class Timer
-{
-    private:
-    //The clock time when the timer started
-    int startTicks;
-
-    //The ticks stored when the timer was paused
-    int pausedTicks;
-
-    //The timer status
-    bool paused;
-    bool started;
-
-    public:
-    //Initializes variables
-    Timer();
-
-    //The various clock actions
-    void start();
-    void stop();
-    void pause();
-    void unpause();
-
-    //Gets the timer's time
-    int get_ticks();
-
-    //Checks the status of the timer
-    bool is_started();
-    bool is_paused();
-};
-
 //The button
 class Button
 {
@@ -257,7 +287,6 @@ class Button
 
     //Shows the button on the screen
     void show();
-    void show(int x,int y);
 };
 
 class Menu
@@ -266,8 +295,7 @@ public:
     Menu();
     SDL_Surface *menuback;
     void show();
-    int bstatus;
-    Button startbutton{280,220,199,62,"./picture/button.png"};
+    Button startbutton{220,220,199,62,"./picture/button.png"};
     void clear();
     //Button exitbutton{280,320,199,62,"./picture/button.png"};
 };
@@ -281,8 +309,26 @@ public:
     //Button percent[11];
     int appear;
     int volume;
+    int pressedTime;
     void clear();
     //Timer clicktime;
 };
-
+class Game1{
+public:
+    Game1();
+    ~Game1();
+    int run();
+    int init();
+    int clear();
+private:
+    bool quit;
+    Alarm alarm;
+    Hand hand[3];
+    Bar bar;
+    int alpha = SDL_ALPHA_TRANSPARENT;
+    SDL_Color fc{255,255,255};
+    SDL_Surface *win=load_image("./picture/fadein.png"),*lose=load_image("./picture/background.png"),*temp;
+    int setup=1;
+    int breaktime;
+};
 #endif // CLASS_H

@@ -1,26 +1,32 @@
 //The headers
 #include "global.h"
 #include "class.h"
+#include "framework.h"
 #include "Alarm.h"
 #include <string>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define BUTTON_DELAY 100
+#define BUTTON_DELAY 200
 
 
 int a,b,eym,f=1,r=1,om=1,show[18],life[18],tm;
 
 //The frame rate regulator
 Timer fps;
+//Create a window
+Window myWindow;
+//Create a menu
+Menu menu;
+//Create a volume button
+Volume vc;
 
 int main( int argc, char* args[] )
 {
     char str[30];
     int setup=1;
-    //Create a window
-    Window myWindow;
+
     //If the window failed
     if( myWindow.error() == true )
     {
@@ -31,58 +37,51 @@ int main( int argc, char* args[] )
     {
         return 1;
     }
-
-    if(setup)
+    if( load_files() == false )
     {
-        srand(time(NULL));
-        int musicstart=rand()%2,stp;
+        return 1;
+    }
+    srand(time(NULL));
+    int musicstart=rand()%2,stp;
 
-        sprintf(str,"./music/startmusic%d.wav",musicstart);
-        //Load the startmusic
-        startmusic[musicstart] = Mix_LoadMUS( str );
+    //Load the startmusic
+    sprintf(str,"./music/startmusic%d.wav",musicstart);
+    startmusic[musicstart] = Mix_LoadMUS( str );
 
-        //If there was a problem loading the startmusic
-        if( startmusic == NULL )
-        {
-            return false;
-        }
+    //If there was a problem loading the startmusic
+    if( startmusic == NULL )
+    {
+        return 0;
+    }
 
-        //If there is no music playing
-        if( Mix_PlayingMusic() == 0 )
-        {
-            //Play the music
-            if( Mix_PlayMusic( startmusic[musicstart], -1 ) == -1 )
-            {
-                return 1;
-            }
-        }
-        stp=musicstart;
-
-        //If there was an error in setting up the screen
-        if( screen == NULL )
+    //If there is no music playing
+    if( Mix_PlayingMusic() == 0 )
+    {
+        //Play the music
+        if( Mix_PlayMusic( startmusic[musicstart], -1 ) == -1 )
         {
             return 1;
         }
+    }
+    stp=musicstart;
 
-        //Set the window caption
-        //SDL_WM_SetCaption( "Run & Die!", NULL );
-
-        if(stp==0)
-        {
-            //Load the images
-            background1 = load_image( "./picture/Start picture.bmp" );
-        }
-        else
-        {
-            //Load the images
-            background1 = load_image( "./picture/Start picture1.bmp" );
-        }
+    //If there was an error in setting up the screen
+    if( screen == NULL )
+    {
+        return 1;
     }
 
+    if(stp==0)
+    {
+        background1 = load_image( "./picture/game1bk.jpg" );
+    }
+    else
+    {
+        background1 = load_image( "./picture/game1bk.jpg" );
+    }
     //Quit flag
     bool quit = false;
 
-    Menu menu;Volume vc;
     menu.show();
     vc.show();
     int ttemp=0;
@@ -96,28 +95,12 @@ int main( int argc, char* args[] )
         menu.show();
         vc.show();
         if(menu.startbutton.num==2){
+            f=0;
+            //Stop the music
+            Mix_HaltMusic();
+            //Free the startmusic
+            //Mix_FreeMusic( startmusic[0] );
             break;
-        }
-        if(ttemp==0){
-            if(vc.volumebutton[vc.appear].num==2){
-                vc.volume=100-vc.volume;
-                Mix_Volume(-1, vc.volume);
-                //Mix_Volume(0, vc.volume);
-                Mix_VolumeMusic(vc.volume);
-                Mix_PausedMusic();
-                Mix_Pause(-1);
-                ttemp+=fps.get_ticks();
-                vc.appear=1-vc.appear;
-            }
-        }
-        else{
-            if(ttemp<BUTTON_DELAY){
-                ttemp+=fps.get_ticks();
-            }
-            else{
-                ttemp=0;
-            }
-
         }
 
         //Update the screen
@@ -129,29 +112,11 @@ int main( int argc, char* args[] )
 
         while( SDL_PollEvent( &event ) )
         {
-            if( event.type == SDL_KEYDOWN )
-            {
-                //如果“s”被按下
-                if( event.key.keysym.sym == SDLK_s )
-                {
-                    f=0;
-                    //Stop the music
-                    Mix_HaltMusic();
-                    //Free the startmusic
-                    Mix_FreeMusic( startmusic[0] );
-                }
-            }
             if( event.type == SDL_QUIT ){
                     quit=true;
                     //clean_up();
                     SDL_Quit();
                     return 0;
-            }
-            if( event.key.keysym.sym == SDLK_m){
-                vc.volume=100-vc.volume;
-                Mix_Volume(-1, vc.volume);
-                //Mix_Volume(0, vc.volume);
-                //Mix_VolumeMusic(vc.volume);
             }
         }
         if( fps.get_ticks() < 90 / FRAMES_PER_SECOND )
@@ -159,8 +124,23 @@ int main( int argc, char* args[] )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
         }
     }
+    Mix_HaltMusic();
+    menu.clear();
 
+    Game1 game1;
+    game1.run();
+    game1.clear();
+    SDL_FreeSurface(background1);
+    background1=SDL_DisplayFormat(load_image("./picture/start picture.bmp"));
 
+    if( Mix_PlayingMusic() == 0 )
+    {
+        //Play the music
+        if( Mix_PlayMusic( startmusic[musicstart], -1 ) == -1 )
+        {
+            return 1;
+        }
+    }
     //The square
     Square mySquare;
 
@@ -211,197 +191,12 @@ int main( int argc, char* args[] )
     myTimer.start();
 
     int run1=0,music=rand()%4,shout=0;
-    Alarm alarm;Hand hand[3];Bar bar;
-    int alpha = SDL_ALPHA_TRANSPARENT;
-    SDL_Color fc{255,255,255};
-    ttemp=0;
-    SDL_Surface *win=load_image("./picture/fadein.png"),*lose=load_image("./picture/background.png"),*temp;
-    bar.t.start();
     int breaktime=0;
-    while( !quit )
-    {
-        fps.stop();
-        fps.start();
-        bar.show();
-        while( SDL_PollEvent( &event ) )
-        {
-            //Handle events for the square
-            alarm.handle_input();
-            //Handle events for the screen
-            myWindow.handle_events();
 
-            //If the user has Xed out the window
-            if( event.type == SDL_QUIT )
-            {
-                //Quit the program
-                //quit = true;
-                clean_up();
-                //SDL_Quit();
-                exit (EXIT_FAILURE);
-            }
-            if( event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p )
-            {
-                if( bar.t.is_paused() == false )
-                {
-                    //Unpause the timer
-                    bar.t.pause();
-                    setup=0;
-                }
-                while(!quit && bar.t.is_paused() == true){
-                    fps.stop();
-                    fps.start();
-                    while(SDL_PollEvent( &event )){
-                        //If the timer is paused
-                        if( event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p  )
-                        {
-                            //Unpause the timer
-                            bar.t.unpause();
-                        }
-                        if( event.type == SDL_QUIT )
-                            exit (EXIT_FAILURE);
-                    }
-                    /*if(setup==0){
-                        apply_surface( 0, 0, background1, screen );
-                        vc.show();
-                        if( SDL_Flip( screen ) == -1 )
-                        {
-                            return 1;
-                        }
-                        setup=1;
-                    }*/
-                    apply_surface( 0, 0, background1, screen );
-                    vc.show();
-                    if( SDL_Flip( screen ) == -1 )
-                    {
-                        return 1;
-                    }
-                    setup=1;
-                    if(ttemp==0){
-                        if(vc.volumebutton[vc.appear].num==2){
-                            vc.volume=100-vc.volume;
-                            Mix_Volume(-1, vc.volume);
-                            //Mix_Volume(0, vc.volume);
-                            Mix_VolumeMusic(vc.volume);
-                            Mix_PausedMusic();
-                            Mix_Pause(-1);
-                            ttemp+=fps.get_ticks();
-                            vc.appear=1-vc.appear;
-                        }
-                    }
-                    else{
-                        if(ttemp<BUTTON_DELAY){
-                            ttemp+=fps.get_ticks();
-                        }
-                        else{
-                            ttemp=0;
-                        }
-                    }
-                    vc.show();
-                    if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
-                    {
-                        SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
-                    }
-                }
-            }
-        }
-        if(ttemp==0){
-            if(vc.volumebutton[vc.appear].num==2){
-                vc.volume=100-vc.volume;
-                Mix_Volume(-1, vc.volume);
-                //Mix_Volume(0, vc.volume);
-                Mix_VolumeMusic(vc.volume);
-                Mix_PausedMusic();
-                Mix_Pause(-1);
-                ttemp+=fps.get_ticks();
-                vc.appear=1-vc.appear;
-            }
-        }
-        else{
-            if(ttemp<BUTTON_DELAY){
-                ttemp+=fps.get_ticks();
-            }
-            else{
-                ttemp=0;
-            }
-
-        }
-        if(bar.life>0)
-        alarm.move();
-        alarm.show();
-        for(int i=0;i<3;i++){
-            hand[i].move(alarm.box,bar);
-            hand[i].show();
-        }
-        if(hand[0].status!=HAND_Stop && hand[1].status!=HAND_Stop && hand[2].status!=HAND_Stop)
-            Mix_PlayChannel( -1, girlshout[0], 0 );
-        if(bar.life<=0){
-            bar.t.pause();
-            sprintf(str,"惰性控制了你 . . .");
-            alpha+=5;
-            //Set surface alpha
-            SDL_SetAlpha( lose, SDL_SRCALPHA, alpha );
-            seconds=TTF_RenderUTF8_Solid( font, str, fc );
-            //seconds=TTF_RenderText_Solid( font, "You lose...", fc );
-            apply_surface( 260, 220, seconds, lose );
-            temp = SDL_DisplayFormat(lose);
-            SDL_SetColorKey( temp, SDL_SRCCOLORKEY, SDL_MapRGB( temp->format, 0, 0xFF, 0xFF ) );
-            SDL_FreeSurface(seconds);
-            //Apply the front
-            apply_surface( 0, 0, temp, screen );
-            SDL_FreeSurface(temp);
-            if(alpha >SDL_ALPHA_OPAQUE-10){
-                alpha-=5;
-                breaktime+=fps.get_ticks();
-                if(breaktime>2000){
-                    SDL_FreeSurface(win);
-                    SDL_FreeSurface(lose);
-                    break;
-                }
-            }
-        }
-        if(bar.t.get_ticks()>60000){
-            bar.t.pause();
-            sprintf(str,"你終於醒了 . . .");
-            alpha+=5;
-            //Set surface alpha
-            SDL_SetAlpha( win, SDL_SRCALPHA, alpha );
-            seconds=TTF_RenderUTF8_Solid( font, str, textColor );
-            //seconds=TTF_RenderText_Solid( font, "You lose...", fc );
-            apply_surface( 260, 220, seconds, win );
-            SDL_FreeSurface(seconds);
-            temp = SDL_DisplayFormat(win);
-            SDL_SetColorKey( temp, SDL_SRCCOLORKEY, SDL_MapRGB( temp->format, 0, 0xFF, 0xFF ) );
-            SDL_FreeSurface(seconds);
-            //Apply the front
-            apply_surface( 0, 0, win, screen );
-            //SDL_FreeSurface(temp);
-            if(alpha >SDL_ALPHA_OPAQUE-10){
-                alpha-=5;
-                breaktime+=fps.get_ticks();
-                if(breaktime>2000){
-                    SDL_FreeSurface(win);
-                    SDL_FreeSurface(lose);
-                    break;
-                }
-            }
-        }
-        //apply_surface(0,0,hand.hand,screen);
-        vc.show();
-        SDL_Flip(screen);
-        //Cap the frame rate
-        if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
-        {
-            SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
-        }
-    }
-
+    ttemp=0;
     apply_surface( 0, 0, background1, screen );
     SDL_Flip(screen);
-    alarm.clear();
-    hand[0].clear();
-    hand[1].clear();
-    bar.clear();
-    menu.clear();
+
     fps.stop();
 
     myTimer.stop();
@@ -412,6 +207,7 @@ int main( int argc, char* args[] )
         while(SDL_PollEvent(&event)){
             if(event.type==SDL_KEYDOWN && event.key.keysym.sym == SDLK_s){
                 quit=true;
+                Mix_HaltMusic();
                 myTimer.start();
             }
             if( event.type == SDL_QUIT )
@@ -473,7 +269,7 @@ int main( int argc, char* args[] )
             }
         }
         else{
-            if(ttemp<BUTTON_DELAY){
+            if(ttemp<200){
                 ttemp+=fps.get_ticks();
             }
             else{

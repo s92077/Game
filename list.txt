@@ -1,0 +1,85 @@
+global.h
+SDL.h
+menu.h
+
+SDL.cpp
+Timer.cpp
+Window.cpp
+global.cpp
+globalfunction.cpp
+menu.cpp
+
+
+squre.cpp
+Boss.cpp
+CenterEnemy.cpp
+Enemy.cpp
+OrthoEnemy.cpp
+ParEnemy.cpp
+RandEnemy.cpp
+
+Alarm.h
+Game1.cpp
+Hand.cpp
+Alarm.cpp
+class Alarm{
+public:
+	//Image of alarm
+    SDL_Surface *alarm;
+    //The collision box of the square
+    SDL_Rect box;
+
+    //The velocity of the dot
+    int xVel, yVel;
+
+    //Initializes the variables
+    Alarm();
+	
+	//Destructor of class
+    ~Alarm();
+
+    //Its current frame
+    int frame;
+
+    //Its animation status
+    int status;
+
+    //Takes key presses and adjusts the square's velocity
+    void handle_input();
+
+    //Moves the square
+    void move();
+
+    //Shows the dot on the screen
+    void show();
+	
+	//Clean up
+    void clear();
+};
+
+bar.cpp
+class Bar{
+public:
+	//Game counter
+    Timer t;
+	//Lives left
+    int life;
+	//Timer display font
+    TTF_Font *f;
+	//Life icon
+    SDL_Surface *heart;
+	//Font surface
+    SDL_Surface *info;
+	//background
+    SDL_Surface *bk;
+    void show();
+    Bar();
+    ~Bar();
+    void clear();
+};
+button.cpp
+class.h
+framework.h
+
+
+

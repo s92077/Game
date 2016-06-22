@@ -97,20 +97,21 @@
 1465794937 source:d:\game\alarm.cpp
 	"Alarm.h"
 
-1465911091 d:\game\alarm.h
+1466054198 d:\game\alarm.h
 	"class.h"
 
-1465910875 d:\game\class.h
+1466458648 d:\game\class.h
 	"global.h"
+	"framework.h"
 
-1465911022 d:\game\global.h
+1466052139 d:\game\global.h
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_image.h"
 	"SDL/SDL_mixer.h"
 	<iostream>
 
-1465573355 source:d:\game\bar.cpp
+1466395883 source:d:\game\bar.cpp
 	"Alarm.h"
 	<stdlib.h>
 	<iostream>
@@ -130,28 +131,30 @@
 1465910965 source:d:\game\global.cpp
 	"global.h"
 
-1465793609 source:d:\game\globalfunction.cpp
+1466052061 source:d:\game\globalfunction.cpp
 	"global.h"
 
 1465792957 source:d:\game\hand.cpp
 	"Alarm.h"
 	"global.h"
 
-1465909872 source:d:\game\menu.cpp
+1466458648 source:d:\game\menu.cpp
+	"class.h"
+	"framework.h"
+
+1466456996 source:d:\game\orthoenemy.cpp
 	"class.h"
 
-1465539615 source:d:\game\orthoenemy.cpp
-	"class.h"
-
-1465539690 source:d:\game\parenemy.cpp
+1466456996 source:d:\game\parenemy.cpp
 	"class.h"
 
 1465539721 source:d:\game\randenemy.cpp
 	"class.h"
 
-1465911825 source:d:\game\sdl.cpp
+1466420903 source:d:\game\sdl.cpp
 	"global.h"
 	"class.h"
+	"framework.h"
 	"Alarm.h"
 	<string>
 	<sstream>
@@ -167,4 +170,11 @@
 
 1465567785 source:d:\game\window.cpp
 	"class.h"
+
+1466396531 source:d:\game\game1.cpp
+	"class.h"
+	"framework.h"
+
+1466053884 d:\game\framework.h
+	"global.h"
 

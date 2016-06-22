@@ -24,7 +24,7 @@ void Bar::show(){
     char str[20];
 
     //Convert the timer's time to a string
-    sprintf(str, "Timer: %d",60-t.get_ticks()/1000);
+    sprintf(str, "Timer: %d",30-t.get_ticks()/1000);
 
     //Render the time surface
     apply_surface(0,0,bk,screen);

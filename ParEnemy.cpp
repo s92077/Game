@@ -1,5 +1,20 @@
 #include "class.h"
 
+ParEnemy::ParEnemy()
+{
+    //Initialize the offsets
+    x = 0;
+    y = 0;
+
+    //Initialize the velocity
+    xVel = 20;
+    yVel = 150;
+
+    //Initialize animation variables
+    frame = 0;
+    status = PARENEMY_Right;
+}
+
 void ParEnemy::move(int a,int b)
 {
     if(abs(x-a)<30&&abs(y-b)<30)

@@ -1,6 +1,6 @@
 #include "class.h"
+#include "framework.h"
 Menu::Menu(){
-    bstatus=1;
 }
 
 void Menu::show(){
@@ -19,6 +19,26 @@ Volume::Volume(){
 }
 void Volume::show(){
     volumebutton[appear].handle_events();
+    if(pressedTime==0){
+        if(volumebutton[appear].num==2){
+            volume=100-volume;
+            Mix_Volume(-1, volume);
+            //Mix_Volume(0, vc.volume);
+            Mix_VolumeMusic(volume);
+            Mix_PausedMusic();
+            Mix_Pause(-1);
+            pressedTime+=fps.get_ticks();
+            appear=1-appear;
+        }
+    }
+    else{
+        if(pressedTime<200){
+            pressedTime+=fps.get_ticks();
+        }
+        else{
+            pressedTime=0;
+        }
+    }
     volumebutton[appear].show();
 };
 void Volume::clear(){
